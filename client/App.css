@@ -1,0 +1,33 @@
+a {
+  text-decoration: none !important;
+}
+
+.tableHeader {
+  font-weight: 550;
+}
+
+.voterIdRow {
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+@page {
+  margin-top: 0.2cm;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print {
+    display: block;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  /* body{
+    zoom: 65%;
+  } */
+}

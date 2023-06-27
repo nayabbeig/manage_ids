@@ -1,0 +1,115 @@
+.gallery{
+    background-color: white;
+    color: #7f858b;
+    height: 100vh;
+}
+
+.gallery_container{
+    text-align: left;
+    padding: 30px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    height: calc(100% - 60px);
+    overflow: auto;
+}
+
+.thumbnail_container{
+    width: 230px;
+    margin: 10px;
+    padding: 5px;
+    background-color: white;
+    border: 1px solid #ebecee;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.thumbnail_cover{
+    display: none;
+}
+
+.thumbnail_container:hover .thumbnail_cover{
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 5px;
+    color: white;
+    align-content: flex-end;
+    position: absolute;
+    width: calc(100% - 10px);
+    background-color: rgba(20, 29, 48, 0.753);
+}
+
+.thumbnail_container:hover{
+    border: 1px solid rgb(161, 188, 247);
+    box-shadow: 0px 0px 10px 0px rgb(13 110 253 / 50%) !important;
+}
+
+
+.image_viewer{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5500;
+}
+
+.image_viwer_header{
+    background-color: white;
+}
+
+.image_viwer_body{
+    background-color: white;
+    height: calc(100vh - 70px);
+}
+
+.image_container{
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid black; */
+    padding: 20px;
+}
+
+.image_container>img{
+    height: 100%;
+}
+
+.image_viewer_button_left {
+    position: absolute;
+    left: 10px;
+    top: 40%;
+}
+
+.image_viewer_button_right {
+    position: absolute;
+    right: 10px;
+    top: 40%;
+}
+
+.bottom_images{
+    height: 20%;
+    display: flex;
+    align-content: flex-start;
+}
+
+.bottom_image_container{
+    width: 200px;
+    margin: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.bottom_image_container img{
+    transition: transform 0.5s;
+}
+.bottom_image_container:hover img{
+    transform: scale(1.2,1.2);
+    z-index: 2000;
+}
+
+.selected_bottom_image{
+    border: 2px solid rgb(161, 188, 247);
+    box-shadow: 0px 0px 10px 1px rgb(13 110 253 / 50%) !important;
+}

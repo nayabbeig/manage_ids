@@ -1,0 +1,37 @@
+/* Styling for Brand component */
+.brand_container {
+    font-size: 25px;
+    font-family: Verdana, Geneva, Taehoma, sans-serif;
+    font-weight: 800;
+    color: #2262c6;
+    text-align: left;
+    padding: 5px;
+    cursor: pointer;
+    /* border: 1px solid blue; */
+}
+
+.brand_container svg {
+    fill: #2262c6;
+}
+
+.menu_item_container {
+    padding-right: 10px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+
+.thumbnail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+    text-align: center;
+}
+
+.thumbnail>img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.content_option_container {}
