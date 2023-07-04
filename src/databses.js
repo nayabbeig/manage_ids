@@ -1,11 +1,10 @@
 const Datastore = require("nedb");
 const AppConfig = require("./app.config");
 
-let mainDB = null;
-
 const loadDb = () => {
-  mainDB = new Datastore(AppConfig.mainDbPath);
+  const mainDB = new Datastore(AppConfig.mainDbPath);
   mainDB.loadDatabase();
+  return mainDB;
 };
 
 const getDbPath = (name) =>
@@ -13,6 +12,8 @@ const getDbPath = (name) =>
 
 const createDb = (name) =>
   new Promise((resolve, reject) => {
+    if (!name) return reject(new Error("Invalid name"));
+    const mainDB = loadDb();
     mainDB.find({ name }, (err, docs) => {
       if (err) {
         console.log(err);
@@ -32,20 +33,26 @@ const createDb = (name) =>
 
           resolve({ result: "success" });
         });
+      } else {
+        reject(new Error("Db with same name already exists"));
       }
     });
   });
 
 const getDb = async (name) => {
-  console.log("insdie getDb", name);
   return new Promise((resolve, reject) => {
+    if (!name) return reject(new Error("Invalid name"));
+    const mainDB = loadDb();
+    console.log("mainDB", mainDB);
     mainDB.find({ name }, (err, docs) => {
       if (err) {
         console.log(err);
         reject(err);
       }
       const doc = docs?.find((doc) => doc?.name === name);
+
       if (doc?.path) {
+        console.log("inside doc if");
         db = new Datastore(doc.path);
         db.loadDatabase();
         console.log("finding....");
@@ -53,6 +60,8 @@ const getDb = async (name) => {
           console.log("data", data);
           return err ? reject(err) : resolve(data);
         });
+      } else {
+        reject(new Error("Db not found"));
       }
     });
   });
@@ -60,6 +69,8 @@ const getDb = async (name) => {
 
 const insertIntoDb = ({ name, data }) =>
   new Promise((resolve, reject) => {
+    if (!name || !data) return reject(new Error("Invalid name and/or data"));
+    const mainDB = loadDb();
     mainDB.find({ name }, (err, docs) => {
       if (err) {
         console.log(err);
@@ -81,6 +92,8 @@ const insertIntoDb = ({ name, data }) =>
             resolve(data);
           });
         }
+      } else {
+        reject(new Error("Record not found"));
       }
     });
   });
@@ -88,8 +101,10 @@ const insertIntoDb = ({ name, data }) =>
 const findInDb = ({ name, filter }) =>
   new Promise((resolve, reject) => {
     if (!name || !filter || typeof filter !== "object") {
-      return new Error("Invalid name or filter");
+      return reject(new Error("Invalid name or filter"));
     }
+
+    const mainDB = loadDb();
 
     mainDB.find({ name }, (err, docs) => {
       if (err) {
@@ -108,7 +123,11 @@ const findInDb = ({ name, filter }) =>
               resolve(data);
             }
           });
+        } else {
+          reject(new Error("Record not found"));
         }
+      } else {
+        reject(new Error("Db not found"));
       }
     });
   });
@@ -116,8 +135,10 @@ const findInDb = ({ name, filter }) =>
 const updateInDb = ({ name, filter, data }) =>
   new Promise((resolve, reject) => {
     if (!name || !filter || typeof filter !== "object") {
-      return new Error("Invalid name or filter");
+      return reject(new Error("Invalid name or filter"));
     }
+
+    const mainDB = loadDb();
 
     mainDB.find({ name }, (err, docs) => {
       if (err) {
@@ -126,21 +147,28 @@ const updateInDb = ({ name, filter, data }) =>
       }
       if (docs?.length) {
         const doc = docs.find((doc) => doc?.name === name);
+        console.log("doc", doc);
         if (doc?.path) {
           db = new Datastore(doc.path);
           db.loadDatabase();
           db.update(
             filter,
-            { $set: data },
+            { $set: data || {} },
             { returnUpdatedDocs: true },
             function (err, numAffected, affectedDocuments) {
               if (err) {
                 reject(err);
                 return;
               }
-              resolve(affectedDocuments);
+              resolve(
+                affectedDocuments?.length
+                  ? affectedDocuments
+                  : "No records were updated"
+              );
             }
           );
+        } else {
+          reject(new Error("Record not found"));
         }
       }
     });
@@ -149,8 +177,10 @@ const updateInDb = ({ name, filter, data }) =>
 const removeInDb = ({ name, filter }) =>
   new Promise((resolve, reject) => {
     if (!name || !filter || typeof filter !== "object") {
-      return new Error("Invalid name or filter");
+      return reject(new Error("Invalid name or filter"));
     }
+
+    const mainDB = loadDb();
 
     mainDB.find({ name }, (err, docs) => {
       if (err) {
@@ -170,6 +200,8 @@ const removeInDb = ({ name, filter }) =>
             resolve(numAffected);
           });
         }
+      } else {
+        reject(new Error("Record not found"));
       }
     });
   });

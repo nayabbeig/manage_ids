@@ -13,9 +13,12 @@ contextBridge.exposeInMainWorld("electronAPI", {
     return await ipcRenderer.invoke("insert-into-db", { name, data });
   },
   findInDb: async (name, filter, data) => {
+    return await ipcRenderer.invoke("find-in-db", { name, filter });
+  },
+  updateInDb: async (name, filter, data) => {
     return await ipcRenderer.invoke("update-in-db", { name, filter, data });
   },
   removeInDb: async (name, filter, data) => {
-    return await ipcRenderer.invoke("remove-in-db", { name, filter, data });
+    return await ipcRenderer.invoke("remove-in-db", { name, filter });
   },
 });

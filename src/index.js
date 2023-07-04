@@ -4,6 +4,20 @@ const { loadClient } = require("./client");
 const { loadDb } = require("./databses");
 const { setDatabaseEvents } = require("./ipcDatabase");
 
+const express = require("express");
+const cors = require("cors");
+const backendApp = express();
+const port = 1337;
+
+backendApp.use(cors());
+backendApp.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+backendApp.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+
 if (require("electron-squirrel-startup")) {
   app.quit();
 }

@@ -34,6 +34,7 @@ const IpAddressPage = () => {
       const input = inputRef?.current?.value;
       const response = await axios.get(`http://${input}:1337`);
       setLoading(false);
+      alert(response);
       if (Number(response?.status) === 200) {
         sessionStorage.setItem("ipAddress", input);
         console.log(input);
@@ -48,7 +49,7 @@ const IpAddressPage = () => {
     }
   };
 
-  return ip ? (
+  return ip || true ? (
     <App />
   ) : (
     <Container>

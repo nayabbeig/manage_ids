@@ -9,6 +9,7 @@ import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import Settings from "./pages/Settings.page";
 import PrintVoterIdPage from "./pages/PrintVoterId.page";
 import ImageGalleryPage from "./pages/Gallery.page";
+import ConfigureMemberPage from "./pages/ConfigureMember.page";
 
 export default function App() {
   return (
@@ -33,7 +34,8 @@ export default function App() {
             <Settings />
           </Route> */}
           <Route path={path.ui.root}>
-            <Redirect to={path.ui.voters} />
+            {/* <Redirect to={path.ui.voters} /> */}
+            <ConfigureMemberPage />
           </Route>
         </Switch>
       </div>

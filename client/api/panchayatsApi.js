@@ -50,6 +50,22 @@ export const panchayatsApi = createApi({
   },
 });
 
+const DB_NAME = "panchayats";
+
+const createPanchayat = async ({ name, pid }) =>
+  await electronAPI.insertIntoDb(DB_NAME, { name, pid });
+
+const updatePanchayat = async (filter = {}, data = {}) =>
+  await electronApi.updatePanchayat(DB_NAME, filter, data);
+
+const deletePanchayat = async (filter = {}) =>
+  await electronApi.remvoveInDb(DB_NAME, filter);
+
+const getPanchayats = async () => await electronApi.getDb(DB_NAME);
+
+const findPanchayat = async (filter = {}) =>
+  await electronApi.createDb(DB_NAME, filter);
+
 export const {
   useGetPanchayatsQuery,
   useGetPanchayatNamesQuery,
