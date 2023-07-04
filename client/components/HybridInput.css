@@ -1,0 +1,157 @@
+/* Duallist--------------------------------------------------------------------- */
+.duallist{
+    width: 100%;
+    height: 110px;
+    display: flex;
+}
+
+.duallist_unselected, .duallist_selected{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ced4da;
+    background-color: white;
+    border-radius: 0.25rem;
+    overflow: auto;
+}
+
+.option {
+    width: 100%;
+    padding: 2px 5px;
+}
+
+.option:hover{
+    background-color: #ced4da;
+    color: white;
+    cursor: pointer;
+}
+
+.option[data-selected=true]{
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+}
+
+.duallist_buttons_container{    width: 60px;
+    padding: 0px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.duallist_button{
+    color: #afb9c4;
+    width: 100%;
+    padding: 0px !important;
+    background: none !important;
+    border: none;
+}
+
+.duallist_button:hover{
+    color: blue !important;
+}
+
+/* Key Value---------------------------------------------------------------------------- */
+.keyvalue{
+    width: 100%;
+}
+
+.keyvalue textarea{
+    width: 100%;
+    border: 1px solid #ced4da;
+    background-color: white;
+    border-radius: 0.25rem;
+    padding: 5px 10px;
+}
+
+.keyvalue textarea:focus{
+    outline: none;
+    box-shadow: 0 0 0pt 3pt lightblue;
+    border-color: #78c8e2;
+}
+
+
+/* Image Upload----------------------------------------------------------------------------- */
+.image_upload{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ced4da;
+    background-color: white;
+    border-radius: 0.25rem;
+}
+
+.image_upload_image_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image_upload_options{
+    display: flex;
+    padding: 5px;
+}
+
+[draggable=true] {
+    cursor: move;
+}
+
+.select_from_gallery { 
+    box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+    border: 1px solid lightgray;
+    width: 50%;
+    height: 80%;
+    position: fixed;
+    border-radius: 5px;
+    overflow: hidden; 
+}
+
+.capture_button{
+    background: white;
+    border: none;
+    padding: 5px 10px;
+}
+
+.capture_button:hover{
+    background: white;
+    color: blue;
+    border: none;
+    padding: 5px 10px;
+}
+
+video {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+
+  ::-webkit-media-controls {
+    display:none !important;
+  }
+
+.select_from_gallery_title{ 
+    width: 100%;
+    height: 40px;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.is-invalid-hybrid {
+    border-color: #dc3545 !important;
+}
+
+.is-valid-hybrid {
+    border-color: #198754 !important;
+}
+
+.dragable_body{
+    height: 100%;
+    overflow: auto;
+}
